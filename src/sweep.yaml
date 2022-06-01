@@ -1,0 +1,32 @@
+command:
+- ${env}
+- ${interpreter}
+- -m
+- ${program}
+- -c
+- mimic_graph_contrast
+- --logs
+- ${args}
+method: bayes
+metric:
+  goal: maximize
+  name: metrics/acc
+parameters:
+  delta:
+    distribution: uniform
+    max: 20
+    min: 1
+  graph_layers:
+    distribution: categorical
+    values:
+    - 512 512 512 512
+    - 512 512
+  attention_features:
+    distribution: int_uniform
+    max: 7
+    min: 1
+  mask_power:
+    distribution: int_uniform
+    max: 3
+    min: 1
+program: models.sweep
